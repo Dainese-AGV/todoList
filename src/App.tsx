@@ -1,28 +1,35 @@
 import React from 'react';
 import './App.css';
+import { Todolist } from './components/Todolist';
 
-function App() {
+
+
+export const App =(props:any) => {
+
+    const tasks1 = [
+        {id: 1, title:"HTML&CSS", isDone: true},
+        {id: 2, title:"JS", isDone: true},
+        {id: 3, title:"ReactJS", isDone: false},
+    ]
+    const tasks2 = [
+        {id: 1, title:"Hello World", isDone: true},
+        {id: 2, title:"I am happy", isDone: false},
+        {id: 3, title:"Yo", isDone: false},
+    ]
+
+    const tasks3 = [
+        {id: 1, title:"xiaomi", isDone: false},
+        {id: 2, title:"I loser", isDone: true},
+        {id: 3, title:"I am prof", isDone: false},
+    ]
+
+
     return (
         <div className="App">
-            <div>
-                <h3>What to learn</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                    <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                    <li><input type="checkbox" checked={false}/> <span>React</span></li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
+        <Todolist title = " What to learn" tasks={tasks1}/>
+        <Todolist title = " Songs" tasks={tasks2}/>
+        <Todolist title = " Books" tasks={tasks3}/>
         </div>
-    );
+    )
 }
 
-export default App;
