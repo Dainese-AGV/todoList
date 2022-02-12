@@ -14,23 +14,27 @@ export const App = () => {
     { id: 7, title: "dainese", isDone: false },
   ]);
 
+  
+
   const [filter, setFilter] = useState("All");
 
   const removeTask = (newID: number) => {
     setTasks(tasks.filter((el) => el.id !== newID));
   };
 
-  let filteredTasks = tasks;
-  if (filter === "active") {
-    filteredTasks = tasks.filter((el) => !el.isDone);
-  }
-  if (filter === "Completed") {
-    filteredTasks = tasks.filter((el) => el.isDone);
-  }
-
   let changeFilter = (value: string) => {
     setFilter(value);
   };
+
+  let filteredTasks = tasks;
+  if (filter === "Active") {
+    filteredTasks = tasks.filter((el) => el.isDone === false);
+  }
+  if (filter === "Completed") {
+    filteredTasks = tasks.filter((el) => el.isDone === true);
+  }
+
+  
 
   return (
     <div className="App">
