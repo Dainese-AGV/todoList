@@ -11,11 +11,12 @@ type TaskType = {
 type PropsType = {
   title: string;
   tasks: Array<TaskType>;
-  removeTask: (taskId: string) => void;
-  changeFilter: (value: FilterValuesType) => void;
-  addTask: (title: string) => void;
-  changeTaskStatus: (id: string, isDone: boolean) => void;
+  removeTask: (todolistId: string, taskId: string) => void;
+  changeFilter: (todolistId: string, value: FilterValuesType) => void;
+  addTask: (todolistId: string, title: string) => void;
+  changeTaskStatus: (todolistId: string, id: string, isDone: boolean) => void;
   filter: FilterValuesType;
+  todolistId: string;
 };
 
 export function Todolist(props: PropsType) {
@@ -24,7 +25,7 @@ export function Todolist(props: PropsType) {
 
   const addTask = () => {
     if (title.trim() !== "") {
-      props.addTask(title);
+      props.addTask(props.todolistId, title);
       setTitle("");
     } else {
       setError("Title is requared");
@@ -41,9 +42,11 @@ export function Todolist(props: PropsType) {
     }
   };
 
-  const onAllClickHandler = () => props.changeFilter("all");
-  const onActiveClickHandler = () => props.changeFilter("active");
-  const onCompletedClickHandler = () => props.changeFilter("completed");
+  const onAllClickHandler = () => props.changeFilter(props.todolistId, "all");
+  const onActiveClickHandler = () =>
+    props.changeFilter(props.todolistId, "active");
+  const onCompletedClickHandler = () =>
+    props.changeFilter(props.todolistId, "completed");
 
   return (
     <div>
@@ -60,10 +63,10 @@ export function Todolist(props: PropsType) {
       </div>
       <ul>
         {props.tasks.map((t) => {
-          const onClickHandler = () => props.removeTask(t.id);
+          const onClickHandler = () => props.removeTask(props.todolistId, t.id);
           const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
             let newIsDoneValue = e.currentTarget.checked;
-            props.changeTaskStatus(t.id, newIsDoneValue);
+            props.changeTaskStatus(props.todolistId, t.id, newIsDoneValue);
           };
 
           return (
