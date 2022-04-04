@@ -14,15 +14,24 @@ export const App = () => {
 
   let [filter, setFilter] = useState<filterValuesType>("all");
 
-  const changeFilter = (value:filterValuesType) => {
-    setFilter(value)
-  }
+  const changeFilter = (value: filterValuesType) => {
+    setFilter(value);
+  };
 
-  const addTask = (title:string) => {
-    let newTask = { id: v1(), title: title, isDone: true }
-    let newTasks = [newTask, ...tasks]
-    setTasks(newTasks)
-  }
+  const addTask = (title: string) => {
+    let newTask = { id: v1(), title: title, isDone: true };
+    let newTasks = [newTask, ...tasks];
+    setTasks(newTasks);
+  };
+
+  const changeStatus = (taskId: string, isDone: boolean) => {
+    let task = tasks.find((e) => e.id === taskId);
+
+    if (task) {
+      task.isDone = isDone;
+    }
+    setTasks([...tasks]);
+  };
 
   let tasksForTodolist = tasks;
   if (filter === "active") {
@@ -39,7 +48,14 @@ export const App = () => {
 
   return (
     <div className="App">
-      <Todolist addTask={addTask} changeFilter={changeFilter} title="What to learn" tasks={tasksForTodolist} removeTasks={removeTasks} />
+      <Todolist
+        addTask={addTask}
+        changeFilter={changeFilter}
+        title="What to learn"
+        tasks={tasksForTodolist}
+        removeTasks={removeTasks}
+        changeTaskStatus={changeStatus}
+      />
     </div>
   );
 };
